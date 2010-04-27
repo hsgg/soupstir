@@ -1,0 +1,8 @@
+#!/bin/sh
+
+PATH="$PATH:`dirname "$0"`"
+
+cfree=/home/gebhardt/cluster/cfree.sh
+
+hostlistfile="/home/gebhardt/cluster/rechnerliste"
+

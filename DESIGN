@@ -1,0 +1,36 @@
+This DESIGN file is setup almost as a kind of troubleshooting howto, as
+that will explain how this software is built.
+
+The first thing to check is whether "./cfree.sh" works. It is a program
+that gathers information about the host it is running on, and prints it
+to stdout. Specifically, it reports processes with a high average cpu
+usage, and the number of cores on the host.
+
+The next thing to test is whether running cfree.sh works remotely, by
+executing the command
+	$ slogin somehost /home/gebhardt/cluster/cfree.sh
+We use slogin, because we have a misconfigured host that doesn't like ssh.
+
+The file /home/gebhardt/cluster/rechnerliste contains a list of all hosts.
+To get data from all hosts in that list, run
+	$ ./all.sh | tee log
+Of course, the "| tee log" is optional. The output is from all hosts in
+parallel. Almost all other commands operate on this information.
+
+In the following, I assume you wrote the output from ./all.sh to the file
+"log", the "cat log" can be replaced by "./all.sh" to get updated info.
+
+Here are some self-explaining commands, that you do _not_ need:
+	$ cat log | ./num_cores.sh
+	$ cat log | ./num_procs.sh
+	$ cat log | ./num_overcommits.sh
+	$ cat log | ./num_free.sh
+Instead, you can get a bit more by running
+	$ cat log | ./statistics.sh
+This calls the previous commands, and a bit more. All these commands use
+"get_user.sh" to get a list of "user group" pairs for each process that is
+being reported by "cfree.sh". "histogram.py" can generate a histogram from
+such data, and it is useful for the other statistics, too.
+
+Another perhaps useful command my be the following:
+	$ cat log | grep "Number of free cores"
