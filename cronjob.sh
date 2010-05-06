@@ -1,12 +1,12 @@
 #!/bin/sh
 
-outfile="/home/gebhardt/cluster/logs/log-`date +%Y%m%d-%H%M`"
-mkdir -p logs
+source "`dirname "$0"`/config"
+
+outfile="$logdir/log-`date +%Y%m%d-%H%M`"
+mkdir -p "$logdir"
 
 echo $outfile
 echo
-
-PATH="$PATH:/home/gebhardt/cluster"
 
 all.sh -q | tee "$outfile" | statistics.sh
 
