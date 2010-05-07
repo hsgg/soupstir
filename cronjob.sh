@@ -11,8 +11,11 @@ echo
 all.sh -q | tee "$outfile" | statistics.sh
 
 # This will also appear in the mail:
-echo
-echo "Unnice:"
-cat "$outfile" | get_unniced.sh | get_user.sh | histogram.py
+unnice="`cat "$outfile" | get_unniced.sh | get_user.sh | histogram.py | sort`"
+if [ x"$unnice" != x"" ]; then
+	echo
+	echo "Unnice:"
+	echo "$unnice"
+fi
 
 chmod -w "$outfile"
