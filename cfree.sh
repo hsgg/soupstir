@@ -1,7 +1,7 @@
 #!/bin/sh
 
 psrun(){
-  ps Hr -eo s,c,stat,euser:10,egroup,comm:25,time
+  ps Hr -eo s=,c=,stat=,euser:10=,egroup=,comm:25=,time=
 }
 
 filter(){
