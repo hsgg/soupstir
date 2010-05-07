@@ -26,6 +26,8 @@ num_free="`echo "$data" | num_free.sh`"
 num_unniced="`echo "$data" | get_unniced.sh | wc -l`"
 histogram="`echo "$data" | get_user.sh | histogram.py | sort`"
 
+jobhisto="`echo "$data" | get_comm.sh | histogram.py | sort`"
+
 hosts="`echo "$hostlist" | sort -u`"
 active_hosts="`echo "$data" | cut -d: -f1 | sort -u`"
 missing_hosts="`get_missing_hosts`"
@@ -33,6 +35,8 @@ num_hosts="`echo "$hosts" | wc -l`"
 num_active_hosts="`echo "$active_hosts" | wc -l`"
 num_hosts_down=$(( $num_hosts - $num_active_hosts ))
 
+echo "$jobhisto"
+echo
 echo "$histogram"
 echo
 echo "Number of hosts: $num_hosts"
