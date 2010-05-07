@@ -23,12 +23,12 @@ Then you can run
 
         ./all.sh | tee log | ./statistics.sh
 
-to gather data about running. It executes '$cfree' on every host, saves it to
-the file 'log', and then displays statistics such as a histogram of how many
-jobs each user is running, the number of unreachable hosts, the number of
-cores, and the number of overcommitted and unniced jobs.
-The user 'freecores none' is a placeholder for cores where no job is running
-on, so you can easily check that by running
+to gather data. It executes '$cfree' on every host, saves it to the file
+'log', and then displays statistics such as a histogram of how many jobs each
+user is running, the number of unreachable hosts, the number of cores, and
+the number of overcommitted and unniced jobs. The user 'freecores none' is a
+placeholder for cores where no job is running on, so you can easily check that
+by running
 
         cat log | grep "Number of free cores"
 
@@ -45,6 +45,7 @@ The following requirements must be met on every node:
 	- Remote login via slogin (part of ssh) without asking for a password
 	  (like using a key)
 	- /bin/sh
+	- hostname
 	- ps
 	- grep
 	- sed
