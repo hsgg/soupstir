@@ -1,24 +1,29 @@
 #!/bin/sh
 
 psrun(){
-  ps Hr -eo s=,c=,stat=,euser:10=,egroup=,comm=,etime=
+  ps H -eo s=,c=,stat=,euser:10=,egroup=,comm=,etime=
 }
 
 filter(){
-  # filter for state Running, and a lot of %cpu (more than 10%)
+  # Filter for a lot of %cpu (more than 10%).
   # If we were to check for 50% or more, it would be possible but
   # difficult to find overcommits.
   # Also, ignore processes that don't have more than a minute of wall
   # time, like this very process itself, for instance.
-  grep -e '^R [1-9][0-9]' -e '^R 100' | grep -v ' 00:..$'
+  grep -e '^. [1-9] ' -e '^. [1-9][0-9] ' -e '^. 100 ' | grep -v ' 00:..$'
+}
+
+jobs_only(){
+  grep -e '^R [1-9][0-9] ' -e '^R 100 '
 }
 
 
 get_num_procs(){
-  if [ x"$processes" = x"" ]; then
+  local themjobs="`echo "$processes" | jobs_only`"
+  if [ x"$themjobs" = x"" ]; then
     echo "0"
   else
-    echo "`echo "$processes" | wc -l`"
+    echo "`echo "$themjobs" | wc -l`"
   fi
 }
 
