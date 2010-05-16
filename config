@@ -7,3 +7,7 @@ cfree=/home/gebhardt/cluster/cfree.sh
 hostlistfile="/home/gebhardt/cluster/rechnerliste"
 
 logdir="/home/gebhardt/cluster/logs"
+
+if [ -e "${HOME}"/.soupstirrc ]; then
+	source "${HOME}"/.soupstirrc
+fi
