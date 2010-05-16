@@ -1,16 +1,16 @@
 #!/bin/sh
 
 psrun(){
-  ps Hr -eo s=,c=,stat=,euser:10=,egroup=,comm:25=,time=
+  ps Hr -eo s=,c=,stat=,euser:10=,egroup=,comm:25=,etime=
 }
 
 filter(){
   # filter for state Running, and a lot of %cpu (more than 10%)
   # If we were to check for 50% or more, it would be possible but
   # difficult to find overcommits.
-  # Also, ignore processes that don't have more than a minute of CPU
+  # Also, ignore processes that don't have more than a minute of wall
   # time, like this very process itself, for instance.
-  grep -e '^R [1-9][0-9]' -e '^R 100' | grep -v '00:00:..$'
+  grep -e '^R [1-9][0-9]' -e '^R 100' | grep -v ' 00:..$'
 }
 
 
@@ -35,7 +35,7 @@ list_idle_procs(){
   local i=$num_free
   while [ "$i" -gt "0" ]; do
     # Emulate a "ps" line
-    echo "$prefix: R 00 RN   freecores  none     idle            00:00:00"
+    echo "$prefix: R 00 RN   freecores  none     idle               00:00"
     i=$(( $i - 1 ))
   done
 }
