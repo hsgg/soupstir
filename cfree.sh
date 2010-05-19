@@ -10,7 +10,7 @@ filter(){
   # difficult to find overcommits.
   # Also, ignore processes that don't have more than a minute of wall
   # time, like this very process itself, for instance.
-  grep -e '^. [1-9] ' -e '^. [1-9][0-9] ' -e '^. 100 ' | grep -v ' 00:..$'
+  grep -e '^.  [1-9] ' -e '^. [1-9][0-9] ' -e '^. 100 ' | grep -v ' 00:..$'
 }
 
 jobs_only(){
