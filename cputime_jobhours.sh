@@ -2,9 +2,9 @@
 
 source "`dirname "$0"`/config"
 
-cat "$logdir"/* \
-	| grep -v "freecores *none" \
-	| grep '^.*: [RS] ' \
+grep -v "freecores *none" \
+	| grep '^.*: [DRSTXZ] ' \
+	| tr -s ' ' \
 	| cut -d' ' -f3 \
 	| histogram.py \
 	| sort -g \
