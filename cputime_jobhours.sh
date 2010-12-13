@@ -7,5 +7,4 @@ grep -v "freecores *none" \
 	| tr -s ' ' \
 	| cut -d' ' -f3 \
 	| histogram.py \
-	| sort -g \
-	| cut -f1,2
+	| sort -g
